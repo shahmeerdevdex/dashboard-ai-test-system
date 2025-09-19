@@ -25,11 +25,19 @@ export interface ProfileTestResult {
   test_end_time: string | null;
 }
 
-// Types for the profiles table (assuming it exists)
+// Types for the profiles table
 export interface Profile {
   id: string;
-  name?: string;
+  cnic_id: string;
+  full_name: string;
   email?: string;
-  cnic?: string;
-  // Add other profile fields as needed
+  phone?: string;
+  created_at?: string;
+  updated_at?: string;
+  fingerprint_url?: string;
+  fingerprint_template_size?: number;
+  fingerprint_enrolled_at?: string;
+  fingerprint_template?: Buffer;
+  fingerprint_img?: string;
+  facial_encoding?: any;
 }

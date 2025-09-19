@@ -29,10 +29,21 @@ export interface TestRecord {
 // Fetch all test records with profile information
 export async function fetchTestRecords(): Promise<TestRecord[]> {
   try {
-    // First, let's try without the profiles join to see what data we get
+    // Join profile_test_results with profiles table to get user details
     const { data, error } = await supabase
       .from("profile_test_results")
-      .select("*")
+      .select(
+        `
+        *,
+        profiles!inner(
+          id,
+          cnic_id,
+          full_name,
+          email,
+          phone
+        )
+      `
+      )
       .order("created_at", { ascending: false });
 
     if (error) {
@@ -40,14 +51,14 @@ export async function fetchTestRecords(): Promise<TestRecord[]> {
       return [];
     }
 
-    console.log({ data });
+    console.log("Fetched test records with profiles:", data);
 
     // Transform the data to match our existing interface
-    return data.map((test: any, index: number) => ({
-      id: `${test.id}`,
-      userName: `User ${test.id}`, // Use test ID as name for now
-      email: `user${test.id}@email.com`, // Generate email
-      cnic: `00000-0000000-${test.id}`, // Generate CNIC
+    return data.map((test: any) => ({
+      id: `T${String(test.id).padStart(3, "0")}`,
+      userName: test.profiles?.full_name || `User ${test.id}`,
+      email: test.profiles?.email || `${test.profiles?.cnic_id || test.id}@email.com`,
+      cnic: test.profiles?.cnic_id || `00000-0000000-${test.id}`,
       startTime: test.test_start_time || test.created_at || new Date().toISOString(),
       endTime: test.test_end_time,
       status: mapStatus(test.final_result, test.test_end_time),

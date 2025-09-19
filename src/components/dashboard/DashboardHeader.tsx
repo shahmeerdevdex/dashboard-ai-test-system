@@ -1,13 +1,23 @@
-import { Bell, MapPin, Search } from "lucide-react";
+import { Bell, MapPin, Search, LogOut, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { useAuthContext } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export function DashboardHeader() {
+  const { user, signOut } = useAuthContext();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await signOut();
+    navigate("/login");
+  };
+
   return (
     <header className="h-20 border-b bg-white/80 backdrop-blur-sm px-6 flex items-center justify-between shadow-sm">
       <div className="flex items-center gap-4">
-      <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3">
           <div className="w-12 h-12 bg-white/80 rounded-full flex items-center justify-center backdrop-blur-sm border border-gray-300 shadow-sm">
             <img
               src="/punjab-logo-png-transparent.png"
@@ -20,7 +30,6 @@ export function DashboardHeader() {
             <p className="text-sm text-gray-700 font-medium">
               AI-Powered Driving Test Administration System
             </p>
-       
           </div>
         </div>
       </div>
@@ -37,6 +46,7 @@ export function DashboardHeader() {
           </div>
         </div>
 
+
         <Button variant="ghost" size="icon" className="relative hover:bg-blue-50">
           <Bell className="w-4 h-4 text-gray-600" />
           <Badge
@@ -44,6 +54,14 @@ export function DashboardHeader() {
             className="absolute -top-1 -right-1 w-5 h-5 text-xs bg-red-500">
             3
           </Badge>
+        </Button>
+
+        <Button
+          variant="ghost"
+          onClick={handleLogout}
+          className="hover:bg-red-50 text-red-600 hover:text-red-700">
+          <LogOut className="w-4 h-4 mr-2" />
+          Logout
         </Button>
       </div>
     </header>
