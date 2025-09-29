@@ -58,7 +58,6 @@ export default function TestDetailsPage() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
         <div className="space-y-8 p-6">
-          <PunjabBrandBanner />
           <div className="max-w-7xl mx-auto">
             <div className="text-center py-12">
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -76,7 +75,6 @@ export default function TestDetailsPage() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
         <div className="space-y-8 p-6">
-          <PunjabBrandBanner />
           <div className="max-w-7xl mx-auto">
             <div className="text-center py-12">
               <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -96,33 +94,38 @@ export default function TestDetailsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="space-y-8 p-6">
-        <div className="max-w-7xl mx-auto space-y-8">
+    <div className="min-h-screen bg-transparent">
+      <div className="space-y-8">
+        <div className="space-y-8">
           {/* Header */}
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Button variant="outline" onClick={() => navigate("/")} className="hover:bg-blue-50">
-                <ArrowLeft className="w-4 h-4 mr-2" />
+            <div className="flex items-center gap-6">
+              <Button
+                variant="outline"
+                onClick={() => navigate("/")}
+                className="hover:bg-blue-50 rounded-xl px-6 py-3 font-semibold shadow-lg">
+                <ArrowLeft className="w-5 h-5 mr-2" />
                 Back to Dashboard
               </Button>
               <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 via-green-600 to-blue-800 bg-clip-text text-transparent">
+                <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 via-green-600 to-blue-800 bg-clip-text text-transparent leading-tight">
                   Test Details - {test.id}
                 </h1>
-                <p className="text-gray-600 mt-1">Comprehensive test analysis and results</p>
+                <p className="text-gray-600 mt-2 text-lg font-medium">
+                  Comprehensive test analysis and results
+                </p>
               </div>
             </div>
             <Badge
               variant={
-                test.status === "passed"
+                test.status === "pass"
                   ? "default"
                   : test.status === "failed"
                   ? "destructive"
                   : "outline"
               }
-              className={`text-lg px-4 py-2 ${
-                test.status === "passed"
+              className={`text-xl font-bold px-6 py-3 rounded-xl shadow-lg ${
+                test.status === "pass"
                   ? "bg-green-100 text-green-800 border-green-200"
                   : test.status === "failed"
                   ? "bg-red-100 text-red-800 border-red-200"
@@ -133,111 +136,136 @@ export default function TestDetailsPage() {
           </div>
 
           {/* Test Overview */}
-          <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-xl">
-            <CardHeader className="bg-gradient-to-r from-blue-50 to-green-50">
-              <CardTitle className="flex items-center gap-3 text-xl">
-                <div className="p-2 bg-blue-100 rounded-lg">
-                  <TestTube className="w-5 h-5 text-blue-600" />
+          <Card className="bg-white/95 backdrop-blur-md border-0 shadow-2xl rounded-2xl overflow-hidden">
+            <CardHeader className="bg-gradient-to-r from-blue-50/90 to-green-50/90 border-b border-white/20">
+              <CardTitle className="flex items-center gap-4 text-2xl font-bold">
+                <div className="p-3 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl shadow-lg">
+                  <TestTube className="w-6 h-6 text-white" />
                 </div>
-                Test Overview
+                <span className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+                  Test Overview
+                </span>
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="space-y-4">
-                  <h4 className="font-bold text-lg text-gray-800 border-b pb-2">
+            <CardContent className="p-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="space-y-6">
+                  <h4 className="font-bold text-xl text-gray-800 border-b-2 border-blue-200 pb-3">
                     Basic Information
                   </h4>
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <span className="text-blue-600 font-bold">T</span>
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center shadow-lg">
+                        <span className="text-blue-600 font-bold text-lg">T</span>
                       </div>
                       <div>
-                        <strong>Test ID:</strong> {test.id}
+                        <strong className="text-lg">Test ID:</strong>{" "}
+                        <span className="text-blue-600 font-semibold text-lg">{test.id}</span>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-blue-200 rounded-lg flex items-center justify-center">
-                        <User className="w-5 h-5 text-blue-700" />
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-blue-200 to-blue-300 rounded-xl flex items-center justify-center shadow-lg">
+                        <User className="w-6 h-6 text-blue-700" />
                       </div>
                       <div>
-                        <strong>User:</strong> {test.userName}
+                        <strong className="text-lg">User:</strong>{" "}
+                        <span className="text-gray-700 font-semibold text-lg">{test.userName}</span>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-blue-300 rounded-lg flex items-center justify-center">
-                        <span className="text-blue-800 font-bold">C</span>
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-blue-300 to-blue-400 rounded-xl flex items-center justify-center shadow-lg">
+                        <span className="text-blue-800 font-bold text-lg">C</span>
                       </div>
                       <div>
-                        <strong>CNIC:</strong> {test.cnic}
+                        <strong className="text-lg">CNIC:</strong>{" "}
+                        <span className="text-gray-700 font-semibold text-lg">{test.cnic}</span>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="space-y-4">
-                  <h4 className="font-bold text-lg text-gray-800 border-b pb-2">Test Timing</h4>
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <Calendar className="w-5 h-5 text-blue-600" />
+                <div className="space-y-6">
+                  <h4 className="font-bold text-xl text-gray-800 border-b-2 border-blue-200 pb-3">
+                    Test Timing
+                  </h4>
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center shadow-lg">
+                        <Calendar className="w-6 h-6 text-green-600" />
                       </div>
                       <div>
-                        <strong>Start:</strong> {formatDateTime(test.startTime)}
+                        <strong className="text-lg">Start:</strong>{" "}
+                        <span className="text-gray-700 font-semibold text-lg">
+                          {formatDateTime(test.startTime)}
+                        </span>
                       </div>
                     </div>
                     {test.endTime && (
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-blue-200 rounded-lg flex items-center justify-center">
-                          <Clock className="w-5 h-5 text-blue-700" />
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-gradient-to-br from-red-100 to-red-200 rounded-xl flex items-center justify-center shadow-lg">
+                          <Clock className="w-6 h-6 text-red-600" />
                         </div>
                         <div>
-                          <strong>End:</strong> {formatDateTime(test.endTime)}
+                          <strong className="text-lg">End:</strong>{" "}
+                          <span className="text-gray-700 font-semibold text-lg">
+                            {formatDateTime(test.endTime)}
+                          </span>
                         </div>
                       </div>
                     )}
                     {test.duration && (
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-blue-300 rounded-lg flex items-center justify-center">
-                          <Clock className="w-5 h-5 text-blue-800" />
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center shadow-lg">
+                          <Clock className="w-6 h-6 text-purple-600" />
                         </div>
                         <div>
-                          <strong>Duration:</strong> {test.duration}
+                          <strong className="text-lg">Duration:</strong>{" "}
+                          <span className="text-gray-700 font-semibold text-lg">
+                            {test.duration}
+                          </span>
                         </div>
                       </div>
                     )}
                   </div>
                 </div>
 
-                <div className="space-y-4">
-                  <h4 className="font-bold text-lg text-gray-800 border-b pb-2">Test Status</h4>
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <span className="text-blue-600 font-bold">S</span>
+                <div className="space-y-6">
+                  <h4 className="font-bold text-xl text-gray-800 border-b-2 border-blue-200 pb-3">
+                    Test Status
+                  </h4>
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl flex items-center justify-center shadow-lg">
+                        <span className="text-orange-600 font-bold text-lg">S</span>
                       </div>
                       <div>
-                        <strong>Status:</strong> {test.status}
+                        <strong className="text-lg">Status:</strong>{" "}
+                        <span className="text-gray-700 font-semibold text-lg">{test.status}</span>
                       </div>
                     </div>
                     {test.currentPhase && (
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-blue-200 rounded-lg flex items-center justify-center">
-                          <span className="text-blue-700 font-bold">P</span>
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-gradient-to-br from-indigo-100 to-indigo-200 rounded-xl flex items-center justify-center shadow-lg">
+                          <span className="text-indigo-600 font-bold text-lg">P</span>
                         </div>
                         <div>
-                          <strong>Phase:</strong> {test.currentPhase}
+                          <strong className="text-lg">Phase:</strong>{" "}
+                          <span className="text-gray-700 font-semibold text-lg">
+                            {test.currentPhase}
+                          </span>
                         </div>
                       </div>
                     )}
                     {test.failReason && (
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-blue-300 rounded-lg flex items-center justify-center">
-                          <span className="text-blue-800 font-bold">!</span>
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-gradient-to-br from-red-100 to-red-200 rounded-xl flex items-center justify-center shadow-lg">
+                          <span className="text-red-600 font-bold text-lg">!</span>
                         </div>
                         <div>
-                          <strong>Fail Reason:</strong> {test.failReason}
+                          <strong className="text-lg">Fail Reason:</strong>{" "}
+                          <span className="text-gray-700 font-semibold text-lg">
+                            {test.failReason}
+                          </span>
                         </div>
                       </div>
                     )}
@@ -248,90 +276,92 @@ export default function TestDetailsPage() {
           </Card>
 
           {/* Detailed Test Results */}
-          <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-xl">
-            <CardHeader className="bg-gradient-to-r from-blue-50 to-blue-100">
-              <CardTitle className="flex items-center gap-3 text-xl">
-                <div className="p-2 bg-blue-100 rounded-lg">
-                  <TestTube className="w-5 h-5 text-blue-600" />
+          <Card className="bg-white/95 backdrop-blur-md border-0 shadow-2xl rounded-2xl overflow-hidden">
+            <CardHeader className="bg-gradient-to-r from-blue-50/90 to-blue-100/90 border-b border-white/20">
+              <CardTitle className="flex items-center gap-4 text-2xl font-bold">
+                <div className="p-3 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl shadow-lg">
+                  <TestTube className="w-6 h-6 text-white" />
                 </div>
-                Detailed Test Results
+                <span className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+                  Detailed Test Results
+                </span>
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div className="p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200">
-                  <h5 className="font-bold text-lg text-gray-800 mb-3">Consistency Check</h5>
+            <CardContent className="p-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="p-8 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl border border-gray-200 shadow-lg">
+                  <h5 className="font-bold text-xl text-gray-800 mb-4">Consistency Check</h5>
                   <Badge
-                    variant={test.consResult === "passed" ? "default" : "destructive"}
-                    className={`text-sm font-semibold px-3 py-1 ${
-                      test.consResult === "passed"
-                        ? "bg-green-100 text-green-800"
-                        : "bg-red-100 text-red-800"
+                    variant={test.consResult === "pass" ? "default" : "destructive"}
+                    className={`text-base font-bold px-4 py-2 rounded-xl ${
+                      test.consResult === "pass"
+                        ? "bg-green-100 text-green-800 shadow-lg"
+                        : "bg-red-100 text-red-800 shadow-lg"
                     }`}>
                     {test.consResult || "Not Tested"}
                   </Badge>
                 </div>
 
-                <div className="p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200">
-                  <h5 className="font-bold text-lg text-gray-800 mb-3">Seatbelt Check</h5>
+                <div className="p-8 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl border border-gray-200 shadow-lg">
+                  <h5 className="font-bold text-xl text-gray-800 mb-4">Seatbelt Check</h5>
                   <Badge
-                    variant={test.seatbeltResult === "passed" ? "default" : "destructive"}
-                    className={`text-sm font-semibold px-3 py-1 ${
-                      test.seatbeltResult === "passed"
-                        ? "bg-green-100 text-green-800"
-                        : "bg-red-100 text-red-800"
+                    variant={test.seatbeltResult === "pass" ? "default" : "destructive"}
+                    className={`text-base font-bold px-4 py-2 rounded-xl ${
+                      test.seatbeltResult === "pass"
+                        ? "bg-green-100 text-green-800 shadow-lg"
+                        : "bg-red-100 text-red-800 shadow-lg"
                     }`}>
                     {test.seatbeltResult || "Not Tested"}
                   </Badge>
                 </div>
 
-                <div className="p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200">
-                  <h5 className="font-bold text-lg text-gray-800 mb-3">Lane Discipline</h5>
+                <div className="p-8 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl border border-gray-200 shadow-lg">
+                  <h5 className="font-bold text-xl text-gray-800 mb-4">Lane Discipline</h5>
                   <Badge
-                    variant={test.laneResult === "passed" ? "default" : "destructive"}
-                    className={`text-sm font-semibold px-3 py-1 ${
-                      test.laneResult === "passed"
-                        ? "bg-green-100 text-green-800"
-                        : "bg-red-100 text-red-800"
+                    variant={test.laneResult === "pass" ? "default" : "destructive"}
+                    className={`text-base font-bold px-4 py-2 rounded-xl ${
+                      test.laneResult === "pass"
+                        ? "bg-green-100 text-green-800 shadow-lg"
+                        : "bg-red-100 text-red-800 shadow-lg"
                     }`}>
                     {test.laneResult || "Not Tested"}
                   </Badge>
                 </div>
 
-                <div className="p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200">
-                  <h5 className="font-bold text-lg text-gray-800 mb-3">Handbrake Check</h5>
+                <div className="p-8 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl border border-gray-200 shadow-lg">
+                  <h5 className="font-bold text-xl text-gray-800 mb-4">Handbrake Check</h5>
                   <Badge
-                    variant={test.handbreakResult === "passed" ? "default" : "destructive"}
-                    className={`text-sm font-semibold px-3 py-1 ${
-                      test.handbreakResult === "passed"
-                        ? "bg-green-100 text-green-800"
-                        : "bg-red-100 text-red-800"
+                    variant={test.handbreakResult === "pass" ? "default" : "destructive"}
+                    className={`text-base font-bold px-4 py-2 rounded-xl ${
+                      test.handbreakResult === "pass"
+                        ? "bg-green-100 text-green-800 shadow-lg"
+                        : "bg-red-100 text-red-800 shadow-lg"
                     }`}>
                     {test.handbreakResult || "Not Tested"}
                   </Badge>
                 </div>
 
-                <div className="p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200">
-                  <h5 className="font-bold text-lg text-gray-800 mb-3">Backlight Check</h5>
+                <div className="p-8 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl border border-gray-200 shadow-lg">
+                  <h5 className="font-bold text-xl text-gray-800 mb-4">Backlight Check</h5>
                   <Badge
-                    variant={test.backlightResult === "passed" ? "default" : "destructive"}
-                    className={`text-sm font-semibold px-3 py-1 ${
-                      test.backlightResult === "passed"
-                        ? "bg-green-100 text-green-800"
-                        : "bg-red-100 text-red-800"
+                    variant={test.backlightResult === "pass" ? "default" : "destructive"}
+                    className={`text-base font-bold px-4 py-2 rounded-xl ${
+                      test.backlightResult === "pass"
+                        ? "bg-green-100 text-green-800 shadow-lg"
+                        : "bg-red-100 text-red-800 shadow-lg"
                     }`}>
                     {test.backlightResult || "Not Tested"}
                   </Badge>
                 </div>
 
-                <div className="p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200">
-                  <h5 className="font-bold text-lg text-gray-800 mb-3">Overall Result</h5>
+                <div className="p-8 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl border border-gray-200 shadow-lg">
+                  <h5 className="font-bold text-xl text-gray-800 mb-4">Overall Result</h5>
                   <Badge
-                    variant={test.overallResult === "passed" ? "default" : "destructive"}
-                    className={`text-sm font-semibold px-3 py-1 ${
-                      test.overallResult === "passed"
-                        ? "bg-green-100 text-green-800"
-                        : "bg-red-100 text-red-800"
+                    variant={test.overallResult === "pass" ? "default" : "destructive"}
+                    className={`text-base font-bold px-4 py-2 rounded-xl ${
+                      test.overallResult === "pass"
+                        ? "bg-green-100 text-green-800 shadow-lg"
+                        : "bg-red-100 text-red-800 shadow-lg"
                     }`}>
                     {test.overallResult || "Pending"}
                   </Badge>
@@ -341,16 +371,18 @@ export default function TestDetailsPage() {
           </Card>
 
           {/* Test Images */}
-          <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-xl">
-            <CardHeader className="bg-gradient-to-r from-blue-50 to-blue-100">
-              <CardTitle className="flex items-center gap-3 text-xl">
-                <div className="p-2 bg-blue-100 rounded-lg">
-                  <ImageIcon className="w-5 h-5 text-blue-600" />
+          <Card className="bg-white/95 backdrop-blur-md border-0 shadow-2xl rounded-2xl overflow-hidden">
+            <CardHeader className="bg-gradient-to-r from-blue-50/90 to-blue-100/90 border-b border-white/20">
+              <CardTitle className="flex items-center gap-4 text-2xl font-bold">
+                <div className="p-3 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl shadow-lg">
+                  <ImageIcon className="w-6 h-6 text-white" />
                 </div>
-                Test Images
+                <span className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+                  Test Images
+                </span>
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-6">
+            <CardContent className="p-8">
               <TestImageViewer
                 images={test.images}
                 userName={test.userName}

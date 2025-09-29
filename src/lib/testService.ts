@@ -7,7 +7,7 @@ export interface TestRecord {
   cnic: string;
   startTime: string;
   endTime: string | null;
-  status: "passed" | "failed" | "in-progress" | "pending";
+  status: "pass" | "failed" | "in-progress" | "pending";
   currentPhase?: string;
   duration?: string;
   testCount: number;
@@ -61,14 +61,14 @@ export async function fetchTestRecords(): Promise<TestRecord[]> {
       cnic: test.profiles?.cnic_id || `00000-0000000-${test.id}`,
       startTime: test.test_start_time || test.created_at || new Date().toISOString(),
       endTime: test.test_end_time,
-      status: mapStatus(test.final_result, test.test_end_time),
-      currentPhase: test.final_result === null ? "Test in Progress" : undefined,
+      status: mapStatus(test.overall_result, test.test_end_time),
+      currentPhase: test.overall_result === null ? "Test in Progress" : undefined,
       duration:
         test.test_start_time && test.test_end_time
           ? calculateDuration(test.test_start_time, test.test_end_time)
           : undefined,
       testCount: 1, // You might want to calculate this based on profile history
-      failReason: test.final_result === "failed" ? getFailureReason(test) : undefined,
+      failReason: test.overall_result === "fail" ? getFailureReason(test) : undefined,
       // Detailed test results
       consResult: test.cons_result,
       seatbeltResult: test.seatbelt_result,
@@ -96,12 +96,12 @@ export async function fetchTestRecords(): Promise<TestRecord[]> {
 function mapStatus(
   finalResult: string | null,
   testEndTime: string | null
-): "passed" | "failed" | "in-progress" | "pending" {
+): "pass" | "failed" | "in-progress" | "pending" {
   if (testEndTime) {
     // Test has ended
-    if (finalResult === "passed") {
-      return "passed";
-    } else if (finalResult === "failed") {
+    if (finalResult === "pass") {
+      return "pass";
+    } else if (finalResult === "fail") {
       return "failed";
     }
     return "failed"; // Default to failed if test ended but no clear result

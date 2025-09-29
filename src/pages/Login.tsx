@@ -71,7 +71,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center p-6 relative overflow-hidden">
       {/* Traffic Signs Background */}
-      <div className="absolute inset-0 pointer-events-none w-[60%] mx-auto">
+      <div className="absolute inset-0 pointer-events-none w-[80%] mx-auto">
         {trafficSigns.map((sign, index) => (
           <img
             key={index}
