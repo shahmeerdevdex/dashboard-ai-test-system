@@ -74,6 +74,8 @@ export default function UsersPage() {
     );
   };
 
+  console.log("filteredUsers", filteredUsers);
+
   return (
     <div className="min-h-screen bg-transparent">
       <div className="space-y-8">
@@ -129,8 +131,11 @@ export default function UsersPage() {
                       </TableHead>
                       <TableHead className="font-bold text-gray-800 py-6 text-lg">CNIC</TableHead>
                       <TableHead className="font-bold text-gray-800 py-6 text-lg">
-                        Contact
+                        Fingerprint
                       </TableHead>
+                      {/* <TableHead className="font-bold text-gray-800 py-6 text-lg">
+                        Contact
+                      </TableHead> */}
                       <TableHead className="font-bold text-gray-800 py-6 text-lg">Status</TableHead>
                       <TableHead className="font-bold text-gray-800 py-6 text-lg">
                         Registered
@@ -172,6 +177,33 @@ export default function UsersPage() {
                             {user.cnic_id}
                           </TableCell>
                           <TableCell className="py-6">
+                            <div className="flex items-center justify-start">
+                              {user.fingerprint_img ? (
+                                <div className="relative">
+                                  <img
+                                    src={`data:image/png;base64,${user.fingerprint_img}`}
+                                    alt="Fingerprint"
+                                    className="w-16 h-16 object-cover rounded-lg border-2 border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-300"
+                                  />
+                                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white flex items-center justify-center">
+                                    <div className="w-2 h-2 bg-white rounded-full"></div>
+                                  </div>
+                                </div>
+                              ) : (
+                                <div className="w-16 h-16 bg-gray-100 rounded-lg border-2 border-gray-200 flex items-center justify-center">
+                                  <div className="text-gray-400 text-xs text-center">
+                                    <div className="w-6 h-6 mx-auto mb-1">
+                                      <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.89 1 3 1.89 3 3V21C3 22.11 3.89 23 5 23H19C20.11 23 21 22.11 21 21V9M19 9H14V4H5V21H19V9Z" />
+                                      </svg>
+                                    </div>
+                                    <span className="text-xs">No Image</span>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          </TableCell>
+                          {/* <TableCell className="py-6">
                             <div className="space-y-2">
                               {user.email && (
                                 <div className="flex items-center gap-2 text-sm">
@@ -189,7 +221,7 @@ export default function UsersPage() {
                                 <span className="text-gray-400 text-sm">No contact info</span>
                               )}
                             </div>
-                          </TableCell>
+                          </TableCell> */}
                           <TableCell className="py-6">{getStatusBadge(user)}</TableCell>
                           <TableCell className="py-6">
                             <div className="flex items-center gap-2 text-sm">
