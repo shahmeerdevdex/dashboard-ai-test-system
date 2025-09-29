@@ -8,6 +8,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { PunjabBrandBanner } from "@/components/dashboard/PunjabBrandBanner";
 import { useAuth } from "@/hooks/useAuth";
 import { LogIn, AlertCircle } from "lucide-react";
+import { trafficSigns } from "@/data/trafficSigns";
 
 export default function LoginPage() {
   const [cnicId, setCnicId] = useState("");
@@ -68,9 +69,21 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center p-6">
-      <div className="w-full max-w-md">
-        <Card className="bg-white rounded-2xl shadow-2xl border-0 overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center p-6 relative overflow-hidden">
+      {/* Traffic Signs Background */}
+      <div className="absolute inset-0 pointer-events-none w-[60%] mx-auto">
+        {trafficSigns.map((sign, index) => (
+          <img
+            key={index}
+            src={sign.image}
+            alt="Traffic sign"
+            className={`absolute ${sign.position} ${sign.size} ${sign.rotation} opacity-30 transition-opacity duration-300 object-contain`}
+          />
+        ))}
+      </div>
+
+      <div className="w-full max-w-md relative z-10">
+        <Card className="bg-white rounded-2xl shadow-2xl border-0 overflow-hidden backdrop-blur-sm">
           {/* Header with Logo and Branding */}
           <div className="text-center pt-8 pb-6 px-8">
             <div className="w-28 h-28 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
