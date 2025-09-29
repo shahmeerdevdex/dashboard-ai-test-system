@@ -4,7 +4,10 @@ const supabaseUrl = "http://desktop-ld7ulf3:54321";
 const supabaseKey =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0";
 
-export const supabase = createClient(supabaseUrl, supabaseKey);
+const liveSupabaseUrl = "https://uqaoyfttymijbsxnxuqy.supabase.co";
+const liveSupabaseKey =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxYW95ZnR0eW1pamJzeG54dXF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ1MzYxNTYsImV4cCI6MjA3MDExMjE1Nn0.QHHeO3MXHZSsCas2RXxdunwpfRSDVlNF2khbRr8LSts";
+export const supabase = createClient(liveSupabaseUrl, liveSupabaseKey);
 
 // Types for the profile_test_results table
 export interface ProfileTestResult {

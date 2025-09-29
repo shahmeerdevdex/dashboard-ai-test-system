@@ -105,6 +105,7 @@ export const useAuth = () => {
 
         setUser(authenticatedUser);
         sessionManager.initSession(authenticatedUser);
+        setLoading(false);
 
         return { success: true, user: authenticatedUser };
       } else {

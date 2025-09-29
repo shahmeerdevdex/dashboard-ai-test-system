@@ -2,18 +2,18 @@ import React, { memo } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 
-interface ProtectedRouteProps {
+interface PublicRouteProps {
   children: React.ReactNode;
 }
 
-const ProtectedRouteComponent: React.FC<ProtectedRouteProps> = ({ children }) => {
+const PublicRouteComponent: React.FC<PublicRouteProps> = ({ children }) => {
   const { user, loading } = useAuth();
 
-  console.log("🔒 ProtectedRoute - User:", user, "Loading:", loading);
+  console.log("🌐 PublicRoute - User:", user, "Loading:", loading);
 
   // Show loading state while checking authentication
   if (loading) {
-    console.log("⏳ ProtectedRoute - Showing loading state");
+    console.log("⏳ PublicRoute - Showing loading state");
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
         <div className="text-center">
@@ -26,16 +26,16 @@ const ProtectedRouteComponent: React.FC<ProtectedRouteProps> = ({ children }) =>
     );
   }
 
-  // Redirect to login if not authenticated
-  if (!user) {
-    console.log("❌ ProtectedRoute - No user, redirecting to login");
-    return <Navigate to="/login" replace />;
+  // Redirect to dashboard if already authenticated
+  if (user) {
+    console.log("✅ PublicRoute - User authenticated, redirecting to dashboard");
+    return <Navigate to="/" replace />;
   }
 
-  // Render children if authenticated
-  console.log("✅ ProtectedRoute - User authenticated, rendering children");
+  // Render children if not authenticated
+  console.log("🌐 PublicRoute - No user, rendering login/register");
   return <>{children}</>;
 };
 
 // Memoize the component to prevent unnecessary re-renders
-export const ProtectedRoute = memo(ProtectedRouteComponent);
+export const PublicRoute = memo(PublicRouteComponent);
