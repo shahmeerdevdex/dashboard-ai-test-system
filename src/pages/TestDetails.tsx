@@ -120,14 +120,14 @@ export default function TestDetailsPage() {
               variant={
                 test.status === "pass"
                   ? "default"
-                  : test.status === "failed"
+                  : test.status === "fail"
                   ? "destructive"
                   : "outline"
               }
               className={`text-xl font-bold px-6 py-3 rounded-xl shadow-lg ${
                 test.status === "pass"
                   ? "bg-green-100 text-green-800 border-green-200"
-                  : test.status === "failed"
+                  : test.status === "fail"
                   ? "bg-red-100 text-red-800 border-red-200"
                   : "bg-blue-100 text-blue-800 border-blue-200"
               }`}>

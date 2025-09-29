@@ -7,7 +7,7 @@ export interface TestRecord {
   cnic: string;
   startTime: string;
   endTime: string | null;
-  status: "pass" | "failed" | "in-progress" | "pending";
+  status: "pass" | "fail" | "in-progress" | "pending";
   currentPhase?: string;
   duration?: string;
   testCount: number;
@@ -96,15 +96,15 @@ export async function fetchTestRecords(): Promise<TestRecord[]> {
 function mapStatus(
   finalResult: string | null,
   testEndTime: string | null
-): "pass" | "failed" | "in-progress" | "pending" {
+): "pass" | "fail" | "in-progress" | "pending" {
   if (testEndTime) {
     // Test has ended
     if (finalResult === "pass") {
       return "pass";
     } else if (finalResult === "fail") {
-      return "failed";
+      return "fail";
     }
-    return "failed"; // Default to failed if test ended but no clear result
+    return "fail"; // Default to fail if test ended but no clear result
   }
 
   if (finalResult === null) {
@@ -118,17 +118,17 @@ function mapStatus(
 function getFailureReason(test: any): string {
   const failures = [];
 
-  if (test.cons_result === "failed") failures.push("Consistency check");
-  if (test.seatbelt_result === "failed") failures.push("Seatbelt check");
-  if (test.lane_result === "failed") failures.push("Lane discipline");
-  if (test.handbreak_result === "failed") failures.push("Handbrake check");
-  if (test.backlight_result === "failed") failures.push("Backlight check");
+  if (test.cons_result === "fail") failures.push("Consistency check");
+  if (test.seatbelt_result === "fail") failures.push("Seatbelt check");
+  if (test.lane_result === "fail") failures.push("Lane discipline");
+  if (test.handbreak_result === "fail") failures.push("Handbrake check");
+  if (test.backlight_result === "fail") failures.push("Backlight check");
 
   if (failures.length > 0) {
     return `Failed: ${failures.join(", ")}`;
   }
 
-  return "Test failed - see details";
+  return "Test failed";
 }
 
 // Calculate duration between start and end time
