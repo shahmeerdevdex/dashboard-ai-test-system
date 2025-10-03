@@ -40,11 +40,12 @@ export default function Dashboard() {
     loadTests();
   }, []);
 
-  // Filter tests based on CNIC search
+  // Filter tests based on CNIC search, excluding test records with CNIC "99999-9999999-9"
   const filteredTests = tests.filter(
     (test) =>
-      test.cnic.toLowerCase().includes(searchTerm.trim().toLowerCase()) ||
-      test.userName.toLowerCase().includes(searchTerm.trim().toLowerCase())
+      test.cnic !== "99999-9999999-9" &&
+      (test.cnic.toLowerCase().includes(searchTerm.trim().toLowerCase()) ||
+        test.userName.toLowerCase().includes(searchTerm.trim().toLowerCase()))
   );
 
   const formatTime = (dateString: string) => {

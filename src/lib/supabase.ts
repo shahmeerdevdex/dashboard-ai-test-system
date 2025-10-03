@@ -7,7 +7,7 @@ const supabaseKey =
 const liveSupabaseUrl = "https://uqaoyfttymijbsxnxuqy.supabase.co";
 const liveSupabaseKey =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxYW95ZnR0eW1pamJzeG54dXF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ1MzYxNTYsImV4cCI6MjA3MDExMjE1Nn0.QHHeO3MXHZSsCas2RXxdunwpfRSDVlNF2khbRr8LSts";
-export const supabase = createClient(liveSupabaseUrl, liveSupabaseKey);
+export const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Types for the profile_test_results table
 export interface ProfileTestResult {
